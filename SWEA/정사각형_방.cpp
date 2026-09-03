@@ -38,36 +38,39 @@ int main(int argc, char** argv)
 
     for (int i=0; i<N; i++){
       for (int j =0; j<N; j++){
-        for (int i=0; i<4; i++){
-          int nx = j + dc[i];
-          int ny = i + dr[i];
+        for (int t=0; t<4; t++){
+          int nx = j + dc[t];
+          int ny = i + dr[t];
 
           if (nx<0 || nx >=N || ny<0 || ny >=N) continue;
 
-          if (v[ny][nx] == v[j][i]+1){
-            canGo[v[j][i]] = true;
+          if (v[ny][nx] == v[i][j]+1){
+            canGo[v[i][j]] = true;
           }
+
         }
       }
     }
 
-    int total_num = 0;
-    int temp=0;
+    int total_num = 1;
+    int temp=1;
     int idx=0;
+    
     for (int i=1; i<= N*N; i++){
       if(canGo[i]){
-        idx = i;
         temp++;
       }
       else{
         if (total_num < temp){
-          
-          temp=0;
+          total_num = temp;
+          idx = i - temp+1;
+        
         }
+        temp=1;
       }
     }
 
-    cout << "#" << test_case << " "  << "\n";
+    cout << "#" << test_case << " "  << idx << " " << total_num << "\n";
     
 	}
 	return 0;//정상종료시 반드시 0을 리턴해야합니다.
