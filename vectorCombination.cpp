@@ -83,6 +83,28 @@ void comb(int idx, int s) {
     }
 }
 
+// --------------------------------------------------------
+// 5. 부분집합 (Subset) : 각 원소를 포함(O)하거나 제외(X)
+// --------------------------------------------------------
+
+void subset(int idx){
+    if (idx == N){
+        if (t.empty()) cout << "공잡합";
+
+        for (int i=0; i < t.size(); i++){
+            cout << t[i] << " ";
+        }
+        cout << "\n";
+        return;
+    }
+
+    t.push_back(a[idx]);
+    subset(idx+1);
+    t.pop_back();
+
+    subset(idx+1);
+}
+
 int main() {
     t.resize(R);
     visited.resize(N, false); // N개만큼 방문 배열 초기화
