@@ -19,7 +19,7 @@ int flag[8][4] = {
   {1,0,0,1},
   {0,1,0,1},
   {0,1,1,0},
-  {1,0,0,1},
+  {1,0,1,0},
 };
 
 vector<vector<int>> v;
@@ -34,28 +34,32 @@ struct Node{
 
 int bfs(int R, int C){
   queue<Node> q;
-  q.push({R,C,0});
+  q.push({R,C,1});
   visited[R][C] = true;
   
-  int total_num = 0;
+  int total_num = 1;
 
   while(!q.empty()){
-    int rr = q.front().r;
-    int rc = q.front().c;
+    int cr = q.front().r;
+    int cc = q.front().c;
     int time = q.front().time;
     q.pop();
 
-   
+    if (time >= L) continue;
+
 
     for (int i=0; i<4; i++){
-      int nr = rr + dr[i];
-      int nc = rc + dc[i];
+      int nr = cr + dr[i];
+      int nc = cc + dc[i];
 
       if (nr < 0 || nr >= N || nc < 0 || nc >=M) continue;
+      if (v[nr][nc] == 0) continue;
 
-      if (!visited[nr][nc] && flag[v[nr][nc]][i] == 1 && !visited[nr][nc] && flag[v[nr][nc]][opp[i]]){
-        visited[nr][nc] = false;
+
+      if (!visited[nr][nc] && flag[v[cr][cc]][i] == 1 &&flag[v[nr][nc]][opp[i]] == 1){
+        visited[nr][nc] = true;
         q.push({nr,nc,time+1});
+        total_num++;
       }
     }
   }
@@ -65,6 +69,9 @@ int bfs(int R, int C){
 
 int main(int argc, char** argv)
 {
+  ios::sync_with_stdio(false);
+  cin.tie(NULL);
+
 	int test_case;
 	int T;
 	cin>>T;
@@ -73,15 +80,15 @@ int main(int argc, char** argv)
 	{
     cin >> N >> M >> R >> C >> L;
     v.assign(N,vector<int>(M,0));
-    visited.assign(N,vector<bool>(M,0));
+    visited.assign(N,vector<bool>(M,false));
     for (int i=0; i<N; i++){
       for (int j=0; j<M; j++){
         cin >> v[i][j];
       }
     }
 
-    bfs(R,C);
-
+    int ans = bfs(R,C);
+    cout << "#" << test_case << " " << ans << "\n";
 
 	}
 	return 0;//정상종료시 반드시 0을 리턴해야합니다.
