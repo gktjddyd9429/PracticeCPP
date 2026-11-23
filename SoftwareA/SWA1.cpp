@@ -17,7 +17,7 @@ int main() {
 	cin.tie(NULL);
 
 	int T;
-	if (!(cin >> T)) return 0;
+	cin >> T;
 
 	for (int test_case = 1; test_case <= T; test_case++) {
 		int N;

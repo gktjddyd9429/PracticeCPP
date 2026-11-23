@@ -70,7 +70,7 @@ void solve() {
                             bool can_move = false;
                             
                             // "오후에 이동할 곳이 있을 때만 씨를 심는다"는 조건 때문에
-                            // 2차원 look 배열을 이용해 미리 4방향을 훑어봅니다.
+                            // 2차원 look 배열을 이용해 미리 4방향을 훑어봅니다.`
                             for (int t = 0; t < 4; ++t) {
                                 int nd = look[d][t]; // 모듈러 연산 없이 look 배열에서 바로 방향 추출
                                 int nr = r + dr[nd];
